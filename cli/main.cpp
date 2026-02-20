@@ -361,22 +361,18 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  std::string port;
+  reed::Config config;
+  if (auto loaded = reed::ConfigManager::load_config()) {
+    config = *loaded;
+  }
+
+  std::string port = config.port;
   bool verbose = false;
   std::string ratio = "2:1";
-  int brightness = 100;
+  int brightness = config.brightness;
   bool keepalive = false;
   bool foreground = false;
-  int keepalive_interval = 10;
-
-  auto config = reed::ConfigManager::load_config();
-  if (config) {
-    if (!config->port.empty()) {
-      port = config->port;
-    }
-    brightness = config->brightness;
-    keepalive_interval = config->keepalive_interval;
-  }
+  int keepalive_interval = config.keepalive_interval;
 
   std::string command;
   std::vector<std::string> args;

@@ -100,9 +100,9 @@ std::optional<Config> ConfigManager::load_config() {
   }
 
   Config config;
-  config.port = get_string(json, "port", "");
-  config.brightness = get_int(json, "brightness", 100);
-  config.keepalive_interval = get_int(json, "keepalive_interval", 10);
+  config.port = get_string(json, "port", config.port);
+  config.brightness = get_int(json, "brightness", config.brightness);
+  config.keepalive_interval = get_int(json, "keepalive_interval", config.keepalive_interval);
 
   return config;
 }
@@ -159,10 +159,10 @@ std::optional<DisplayState> ConfigManager::load_state() {
     }
   }
 
-  state.ratio = get_string(json, "ratio", "2:1");
-  state.screen_mode = get_string(json, "screen_mode", "Full Screen");
-  state.play_mode = get_string(json, "play_mode", "Single");
-  state.brightness = get_int(json, "brightness", 100);
+  state.ratio = get_string(json, "ratio", state.ratio);
+  state.screen_mode = get_string(json, "screen_mode", state.screen_mode);
+  state.play_mode = get_string(json, "play_mode", state.play_mode);
+  state.brightness = get_int(json, "brightness", state.brightness);
 
   return state;
 }
